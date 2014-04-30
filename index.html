@@ -1,0 +1,372 @@
+﻿<!doctype html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8">
+
+		<title>An Introduction to GeoJSON</title>
+
+		<meta name="description" content="An introductory talk about GeoJSON for FE Suffolk">
+		<meta name="author" content="Paul Hutson">
+
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+		<link rel="stylesheet" href="css/reveal.min.css">
+		<link rel="stylesheet" href="css/theme/default.css" id="theme">
+
+		<!-- For syntax highlighting -->
+		<link rel="stylesheet" href="lib/css/zenburn.css">
+
+		<!-- If the query includes 'print-pdf', include the PDF print sheet -->
+		<script>
+			if( window.location.search.match( /print-pdf/gi ) ) {
+				var link = document.createElement( 'link' );
+				link.rel = 'stylesheet';
+				link.type = 'text/css';
+				link.href = 'css/print/pdf.css';
+				document.getElementsByTagName( 'head' )[0].appendChild( link );
+			}
+		</script>
+
+		<!--[if lt IE 9]>
+		<script src="lib/js/html5shiv.js"></script>
+		<![endif]-->
+	</head>
+
+	<body>
+
+		<div class="reveal">
+
+			<!-- Any section element inside of this container is displayed as a slide -->
+			<div class="slides">
+				<section>
+					<h1>GeoJSON</h1>
+					<h3>An introduction to GeoJSON</h3>
+					<p>
+						<small>By Paul Hutson / <a href="http://twitter.com/paulhutson">@PaulHutson</a></small>
+					</p>
+				</section>
+
+				<section>
+					<h2>GeoJSON - What is it?</h2>
+                    <p class="fragment">
+                        It's a GIS (Graphical Information System).
+                    </p>
+                    <p class="fragment">
+                        Open standard format for geographical features (or data structures) using JSON.
+                    </p>
+                    <p class="fragment">
+                        It differs from out GIS standards as it was written by an internet working group of developers.
+                    </p>
+                    <p class="fragment">
+                        Discussion about the format was started in March 2007 and was finalised in June 2008
+                    </p>
+				</section>
+
+                <section>
+                    <section>
+                        <h2>What can GeoJSON Do?</h2>
+                        <p>
+                            <img src="images/Leaflet-Example.png" />
+                        </p>
+                    </section>
+                    <section>
+                        <h2>Points</h2>
+                        <i>Addresses or Locations</i><br /><br />
+                        <p>
+                            <img src="images/SFA_Point.svg" style="width:30%;" />
+                        </p>
+                    </section>
+
+                    <section>
+                        <h2>Line Strings</h2>
+                        <i>Streets / Boundaries</i><br /><br />
+                        <p>
+                            <img src="images/SFA_LineString.svg" style="width:30%;" />
+                        </p>
+                    </section>
+
+                    <section>
+                        <h2>Polygons</h2>
+                        <i>Countries, Counties, areas of land</i><br /><br />
+                        <p>
+                            <img src="images/SFA_Polygon.svg" style="width:30%;" />
+                        </p>
+                    </section>
+
+                    <section>
+                        <h2>Multipart Collections</h2>
+                        <i>i.e. Counties & their County Towns</i><br /><br />
+                        <p>
+                            <img src="images/SFA_MultiPolygon_with_hole.svg" style="width:30%;" />
+                        </p>
+                    </section>
+                </section>
+
+
+                <section>
+                    <section>
+                        <h2>GeoJSON - Point</h2>
+                        <p>
+                            <pre>
+                            <code data-trim contenteditable style="font-size: 18px; margin-top: 20px;">
+{  "type": "Point", 
+    "coordinates": [100.0, 0.0] 
+}
+					            </code>
+                            </pre>
+                        </p>
+                    </section>
+                    <section>
+                        <h2>GeoJSON - Line String</h2>
+                        <p>
+                            <pre>
+                            <code data-trim contenteditable style="font-size: 18px; margin-top: 20px;">
+{   "type": "LineString", 
+    "coordinates": [ 
+        [100.0, 0.0], [101.0, 1.0] 
+    ] 
+}
+					            </code>
+                            </pre>
+                        </p>
+                    </section>
+                    <section>
+                        <h2>GeoJSON - Polygon</h2>
+                        <p>
+                            <pre>
+                            <code data-trim contenteditable style="font-size: 18px; margin-top: 20px;">
+{ "type": "Polygon",
+    "coordinates": [
+        [ [100.0, 0.0], [101.0, 0.0], [101.0, 1.0], [100.0, 1.0], [100.0, 0.0] ]
+        ]
+}
+					            </code>
+                            </pre>
+                        </p>
+                    </section>
+                    <section>
+                        <h2>GeoJSON - Multipoint</h2>
+                        <p>
+                            <pre>
+                            <code data-trim contenteditable style="font-size: 18px; margin-top: 20px;">
+{ "type": "GeometryCollection",
+    "geometries": [
+        { "type": "Point",
+        "coordinates": [100.0, 0.0]
+        },
+        { "type": "LineString",
+        "coordinates": [ [101.0, 0.0], [102.0, 1.0] ]
+        }
+    ]
+}
+					            </code>
+                            </pre>
+                        </p>
+                    </section>
+                    <section>
+                        <h2>Testing Your GeoJSON</h2>
+                        <a href="http://geojsonlint.com/">GeoJSONlint.com</a>
+                    </section>
+                </section>
+
+				<section>
+					<h2>Using GeoJSON</h2>
+                    <p>
+                        There are a number of different mapping and GIS packages that support GeoJSON.
+                    </p>
+                    <p>
+                        OpenLayers, Leaflet, Geoforge, GeoServer, GeoDjango, GDAL, Safe Software FME and CartoDB.
+                    </p>
+                    <p class="fragment">
+                        Bing Maps, Yahoo! and Google also support GeoJSON in their API services.
+                    </p>
+                    <p class="fragment">
+                        Google Maps integration is possible using libraries (or by iterating through the data and creating equivilant objects).
+                    </p>
+                    <p class="fragment">
+                        GitHub also supports GeoJSON rendering.
+					</p>
+				</section>
+
+                <section>
+                    <section>
+                        <h2>Leaflet Code Example</h2>
+                        <i>Including the Leaflet CSS / JS</i>
+                        <pre>
+                        <code data-trim contenteditable style="font-size: 18px; margin-top: 20px;">
+<link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.7.2/leaflet.css" />
+<script src="http://cdn.leafletjs.com/leaflet-0.7.2/leaflet.js"></script>
+					    </code>
+                        </pre>
+                        <p>
+                            <a href="GeoJson-Example.html" target="_blank">GeoJSON and Leaflet Example</a>
+                        </p>
+                    </section>
+
+                    <section>
+                        <h2>Leaflet Code Example</h2>
+                        <i>Creating the Map View - Part 1</i>
+                        <pre>
+                        <code data-trim contenteditable style="font-size: 18px; margin-top: 20px;">
+// set up the map
+var map = new L.Map('map'); // needs a corresponding <div id="map"></div> on the page somewhere
+					    </code>
+                        </pre>
+                    </section>  
+
+                    <section>
+                        <h2>Leaflet Code Example</h2>
+                        <i>Creating the Map View - Part 2</i>
+                        <pre>
+                        <code data-trim contenteditable style="font-size: 18px; margin-top: 20px;">
+// create the tile layer
+var osmUrl = 'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png';
+var osmAttrib = 'Map data © <a href="http://openstreetmap.org">OpenStreetMap</a> contributors';
+var osm = new L.TileLayer(osmUrl, { minZoom: 8, maxZoom: 15, attribution: osmAttrib });
+					    </code>
+                        </pre>
+                    </section> 
+
+                    <section>
+                        <h2>Leaflet Code Example</h2>
+                        <i>Set the view point and add the map tiles</i>
+                        <pre>
+                        <code data-trim contenteditable style="font-size: 18px; margin-top: 20px;">
+// start the map in London (note, it's y,x for latlng)
+map.setView(new L.LatLng(51.505, -0.09), 13);
+map.addLayer(osm);
+					    </code>
+                        </pre>
+                    </section> 
+
+                    <section>
+                        <h2>Leaflet Code Example</h2>
+                        <i>GeoJSON Feature</i>
+                        <pre>
+                        <code data-trim contenteditable style="font-size: 18px; margin-top: 20px;">
+// Create a GeoJSON Feature
+var geojsonFeature = {
+    "type": "Feature",
+    "properties": {
+        "name": "Example",
+        "amenity": "Example",
+        "popupContent": "Example!"
+    },
+    "geometry": {
+        "type": "Point",
+        "coordinates": [-0.09, 51.5]
+    }
+};
+					    </code>
+                        </pre>
+                    </section>
+
+                    <section>
+                        <h2>Leaflet Code Example</h2>
+                        <i>Add the feature to the map...</i>
+                        <pre>
+                        <code data-trim contenteditable style="font-size: 18px; margin-top: 20px;">
+// Create the layer and add the feature to the map                                                        
+L.geoJson(geojsonFeature).addTo(map);
+
+// Alternatively, you could do it like the below...
+//var myLayer = L.geoJson().addTo(map);
+//myLayer.addData(geojsonFeature);
+					    </code>
+                        </pre>
+                    </section>
+
+                    <section>
+                        <h2>Leaflet Code Example</h2>
+                        <i>Other Leaflet Items</i>
+                        <pre>
+                        <code data-trim contenteditable style="font-size: 18px; margin-top: 20px;">
+// Point Marker
+var marker = L.marker([51.5, -0.09]).addTo(map);
+
+// Circle (not a GeoJSON Format)
+var circle = L.circle([51.508, -0.11], 500, {
+    color: 'red',
+    fillColor: '#f03',
+    fillOpacity: 0.5
+}).addTo(map);
+
+// Polygon / Coordinate view
+var polygon = L.polygon([
+    [51.509, -0.08],
+    [51.503, -0.06],
+    [51.51, -0.047]
+]).addTo(map);
+					    </code>
+                        </pre>
+                    </section>                   
+
+                    <section>
+                        <h2>Leaflet Example 1</h2>
+                        <p>
+                            <img src="images/Leaflet-Example.png" />
+
+                        </p>
+                    </section>
+
+                    <section>
+                        <h2>Leaflet Example 2</h2>
+                        <p>
+                            <img src="images/Leaflet-Example-states.png" />
+                            
+                        </p>
+                    </section>
+                </section>
+				
+                <section>
+                    <h2>Questions?</h2>
+                </section>
+
+				<section>
+					<h1>THE END</h1>
+					<h3><small>BY Paul Hutson / <a href="http://twitter.com/paulhutson">@PaulHutson</a></small></h3>
+				</section>
+
+			</div>
+
+		</div>
+
+		<script src="lib/js/head.min.js"></script>
+		<script src="js/reveal.min.js"></script>
+
+		<script>
+
+			// Full list of configuration options available here:
+			// https://github.com/hakimel/reveal.js#configuration
+			Reveal.initialize({
+				controls: true,
+				progress: true,
+				history: true,
+				center: true,
+
+				theme: Reveal.getQueryHash().theme, // available themes are in /css/theme
+				transition: Reveal.getQueryHash().transition || 'default', // default/cube/page/concave/zoom/linear/fade/none
+
+				// Parallax scrolling
+				// parallaxBackgroundImage: 'https://s3.amazonaws.com/hakim-static/reveal-js/reveal-parallax-1.jpg',
+				// parallaxBackgroundSize: '2100px 900px',
+
+				// Optional libraries used to extend on reveal.js
+				dependencies: [
+					{ src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
+					{ src: 'plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+					{ src: 'plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
+					{ src: 'plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } }
+				]
+			});
+
+		</script>
+
+	</body>
+</html>
